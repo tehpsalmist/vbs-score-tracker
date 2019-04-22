@@ -1,0 +1,47 @@
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+@responsive {
+  .justify-evenly {
+    justify-content: space-evenly;
+  }
+}
+
+.continent {
+  stroke:#777;
+  stroke-width:0.4;
+}
+
+.globe {
+  fill:#64beff;
+}
+
+.bg-gradient-indigo-blue {
+  background-image: linear-gradient(to bottom right, theme('colors.indigo.500'), theme('colors.blue.700'))
+}
+
+.fade-in {
+  animation: 1s ease-in-out fadein;
+}
+
+@keyframes fadein {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: .75;
+    transform: scale(1.1);
+  }
+  90% {
+    opacity: .9;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

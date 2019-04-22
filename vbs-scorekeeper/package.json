@@ -1,5 +1,5 @@
 {
-  "name": "vbs-scoreboard",
+  "name": "vbs-scorekeeper",
   "version": "0.1.0",
   "private": true,
   "homepage": "./",
@@ -9,7 +9,7 @@
     "react-scripts": "2.1.8"
   },
   "scripts": {
-    "start": "ngtw b && PORT=3001 BROWSER=none rescripts start & ngtw w",
+    "start": "ngtw b && PORT=3002 BROWSER=none rescripts start & ngtw w",
     "build": "ngtw b -p && rescripts build",
     "test": "rescripts test"
   },

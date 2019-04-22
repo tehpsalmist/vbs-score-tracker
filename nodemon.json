@@ -1,0 +1,11 @@
+{
+  "ignore": [
+    "./vbs-scoreboard",
+    "./vbs-scorekeeper",
+    "./menu-screen",
+    "tailwind.config.js"
+  ],
+  "events": {
+    "start": "clear"
+  }
+}

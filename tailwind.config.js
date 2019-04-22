@@ -120,6 +120,11 @@ module.exports = {
         900: '#702459'
       }
     },
+    gradients: theme => ({
+      colors: {
+        'indigo-purple': [theme('colors.indigo.500'), theme('colors.purple.500')]
+      }
+    }),
     spacing: {
       px: '1px',
       '0': '0',
@@ -139,7 +144,10 @@ module.exports = {
       '40': '10rem',
       '48': '12rem',
       '56': '14rem',
-      '64': '16rem'
+      '64': '16rem',
+      '72': '18rem',
+      '80': '20rem',
+      '104': '26rem'
     },
     screens: {
       sm: '640px',
@@ -275,6 +283,7 @@ module.exports = {
     height: theme => ({
       auto: 'auto',
       ...theme('spacing'),
+      'sk-column': 'calc(100% - 6rem)',
       full: '100%',
       screen: '100vh'
     }),
@@ -385,8 +394,8 @@ module.exports = {
     borderCollapse: [],
     borderColor: ['responsive', 'hover', 'focus'],
     borderRadius: ['responsive'],
-    borderStyle: ['responsive'],
-    borderWidth: ['responsive'],
+    borderStyle: ['responsive', 'hover', 'focus'],
+    borderWidth: ['responsive', 'hover', 'focus'],
     cursor: ['responsive'],
     display: ['responsive'],
     flexDirection: ['responsive'],
@@ -442,5 +451,7 @@ module.exports = {
     zIndex: ['responsive']
   },
   corePlugins: {},
-  plugins: []
+  plugins: [
+    require('tailwindcss-gradients')()
+  ]
 }

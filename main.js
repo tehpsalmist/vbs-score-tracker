@@ -1,50 +1,155 @@
-// Modules to control application life and create native browser window
-const { app, BrowserWindow } = require('electron')
+const url = require('url')
+const path = require('path')
+
+const { app, BrowserWindow, ipcMain } = require('electron')
+const Store = require('electron-store')
+
+const createDBListeners = require('./dbListeners')
+
+const store = new Store()
+
 const { DEV } = process.env
 
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
-let menuWindow
+const windows = {
+  menuWindow: null,
+  scorekeeperWindow: null,
+  scoreboardWindow: null
+}
+
+app.on('ready', createMenuWindow)
+
+app.on('window-all-closed', function () {
+  if (process.platform !== 'darwin') app.quit()
+})
+
+app.on('activate', function () {
+  if (windows.menuWindow === null) createMenuWindow()
+})
+
+ipcMain.on('open', (event, appName) => {
+  appName === 'scoreboard' && createScoreboardWindow()
+  appName === 'scorekeeper' && createScorekeeperWindow()
+})
+
+ipcMain.on('score', (event, { category, points, team }) => {
+  const currentScore = (store.store[team] && store.store[team][category]) || 0
+
+  store.set(`${team}.${category}`, currentScore + points)
+})
+
+const scoreKeys = [
+  'teamA.visitors',
+  'teamA.verses',
+  'teamA.rally',
+  'teamA.games',
+  'teamA.attendance',
+  'teamA.bibles',
+  'teamA.offering',
+  'teamB.visitors',
+  'teamB.verses',
+  'teamB.rally',
+  'teamB.games',
+  'teamB.attendance',
+  'teamB.bibles',
+  'teamB.offering'
+]
+
+createDBListeners(store, scoreKeys, key => (newValue, oldValue) => {
+  if (windows.scoreboardWindow) {
+    windows.scoreboardWindow.webContents.send('new-score', { key, points: newValue - (oldValue || 0), newValue })
+  }
+
+  if (windows.scorekeeperWindow) {
+    windows.scorekeeperWindow.webContents.send('new-score', { key, oldPoints: newValue - (oldValue || 0), newValue })
+  }
+})
 
 function createMenuWindow () {
-  // Create the browser window.
-  menuWindow = new BrowserWindow({
+  windows.menuWindow = new BrowserWindow({
+    width: 800,
+    height: 600,
+    frame: false,
+    backgroundColor: '#667eea',
     webPreferences: {
       nodeIntegration: true
     }
   })
 
-  // and load the index.html of the app.
-  menuWindow.loadURL('http://localhost:3000')
+  windows.menuWindow.loadURL(DEV ? 'http://localhost:3000' : url.format({
+    protocol: 'file',
+    slashes: true,
+    pathname: path.join(__dirname, 'menuscreen/build/index.html')
+  }))
 
-  // Open the DevTools.
-  menuWindow.webContents.openDevTools()
+  // windows.menuWindow.webContents.openDevTools()
 
-  menuWindow.maximize()
-
-  // Emitted when the window is closed.
-  menuWindow.on('closed', function () {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
-    menuWindow = null
+  windows.menuWindow.on('closed', () => {
+    windows.menuWindow = null
   })
 }
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
-app.on('ready', createMenuWindow)
+function createScorekeeperWindow () {
+  if (windows.scorekeeperWindow instanceof BrowserWindow) {
+    return windows.scorekeeperWindow.focus()
+  }
 
-// Quit when all windows are closed.
-app.on('window-all-closed', function () {
-  // On macOS it is common for applications and their menu bar
-  // to stay active until the user quits explicitly with Cmd + Q
-  if (process.platform !== 'darwin') app.quit()
-})
+  windows.scorekeeperWindow = new BrowserWindow({
+    width: getScreen('width'),
+    height: getScreen('height'),
+    x: 0,
+    y: 0,
+    backgroundColor: '#667eea',
+    frame: false,
+    webPreferences: {
+      nodeIntegration: true
+    }
+  })
 
-app.on('activate', function () {
-  // On macOS it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
-  if (menuWindow === null) createMenuWindow()
-})
+  windows.scorekeeperWindow.loadURL(DEV ? 'http://localhost:3002' : url.format({
+    protocol: 'file',
+    slashes: true,
+    pathname: path.join(__dirname, 'vbs-scorekeeper/build/index.html')
+  }))
+
+  // windows.scorekeeperWindow.webContents.openDevTools()
+
+  windows.scorekeeperWindow.on('closed', () => {
+    windows.scorekeeperWindow = null
+  })
+}
+
+function createScoreboardWindow () {
+  if (windows.scoreboardWindow instanceof BrowserWindow) {
+    return windows.scoreboardWindow.focus()
+  }
+
+  windows.scoreboardWindow = new BrowserWindow({
+    frame: false,
+    backgroundColor: '#4a5568',
+    webPreferences: {
+      nodeIntegration: true
+    }
+  })
+
+  windows.scoreboardWindow.loadURL(DEV ? 'http://localhost:3001' : url.format({
+    protocol: 'file',
+    slashes: true,
+    pathname: path.join(__dirname, 'vbs-scoreboard/build/index.html')
+  }))
+
+  windows.scoreboardWindow.maximize()
+
+  /**
+   * @todo populate current scores? (maybe wait for scorekeeper to initiate that?)
+   */
+
+  // windows.scoreboardWindow.webContents.openDevTools()
+
+  windows.scoreboardWindow.on('closed', () => {
+    windows.scoreboardWindow = null
+  })
+}
+
+function getScreen (key) {
+  return require('electron').screen.getPrimaryDisplay().size[key]
+}

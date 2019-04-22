@@ -2,7 +2,7 @@ module.exports = {
   // Tailwind Paths
   configJS: '/Users/tehpsalmist/Proprietary/vbs-score-tracker/tailwind.config.js',
   sourceCSS: '/Users/tehpsalmist/Proprietary/vbs-score-tracker/tailwind.css',
-  outputCSS: '/Users/tehpsalmist/Proprietary/vbs-score-tracker/vbs-scoreboard/src/index.css',
+  outputCSS: '/Users/tehpsalmist/Proprietary/vbs-score-tracker/menu-screen/src/index.css',
   // Sass
   sass: false,
   // PurgeCSS Settings

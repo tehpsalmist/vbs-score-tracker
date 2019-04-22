@@ -1,0 +1,33 @@
+{
+  "name": "vbs-score-tracker",
+  "version": "1.0.0",
+  "description": "VBS Score Tracker Desktop App",
+  "main": "main.js",
+  "scripts": {
+    "start": "nodemon --exec electron .",
+    "electron": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tehpsalmist/vbs-score-tracker.git"
+  },
+  "keywords": [
+    "electron",
+    "scoreboard",
+    "vbs"
+  ],
+  "author": "Ben Steward <bstewardcodes@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tehpsalmist/vbs-score-tracker/issues"
+  },
+  "homepage": "https://github.com/tehpsalmist/vbs-score-tracker#readme",
+  "devDependencies": {
+    "electron": "^4.1.4",
+    "electron-reloader": "^0.2.0",
+    "tailwindcss-gradients": "^1.1.0"
+  },
+  "dependencies": {
+    "electron-store": "^3.2.0"
+  }
+}
