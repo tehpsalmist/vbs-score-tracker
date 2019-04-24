@@ -190,7 +190,8 @@ module.exports = {
       '3xl': '1.875rem',
       '4xl': '2.25rem',
       '5xl': '3rem',
-      '6xl': '4rem'
+      '6xl': '4rem',
+      'huge': '8vw'
     },
     fontWeight: {
       hairline: 100,
@@ -335,6 +336,7 @@ module.exports = {
       '2xl': '0 25px 50px -12px rgba(0, 0, 0, .25)',
       inner: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
       outline: '0 0 0 3px rgba(66, 153, 225, 0.5)',
+      glow: '0px 0px 5px #fff',
       none: 'none'
     },
     zIndex: {
@@ -380,6 +382,7 @@ module.exports = {
     },
     inset: {
       '0': 0,
+      '50': '50%',
       auto: 'auto'
     },
     container: {}

@@ -27,6 +27,11 @@
   animation: 1s ease-in-out fadein;
 }
 
+.fade-in-out {
+  animation: 2s cubic-bezier(.45, .67, .83, 1) fadeinout;
+  opacity: 0;
+}
+
 @keyframes fadein {
   0% {
     opacity: 0;
@@ -44,4 +49,35 @@
     opacity: 1;
     transform: scale(1);
   }
+}
+
+@keyframes fadeinout {
+  0% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  /* 13% {
+    opacity: 1;
+    transform: scale(1.2) translateY(-15%);
+  }
+  30% {
+    opacity: .8;
+    transform: scale(1.35) translateY(-30%);
+  }
+  50% {
+    opacity: .6;
+    transform: scale(1.45) translateY(-45%);
+  }
+  73% {
+    opacity: .4;
+    transform: scale(1.5) translateY(-60%);
+  } */
+  100% {
+    opacity: 0;
+    transform: scale(1.53) translateY(-75%);
+  }
+}
+
+.text-glow {
+  text-shadow: 0px 0px 25px #fff;
 }

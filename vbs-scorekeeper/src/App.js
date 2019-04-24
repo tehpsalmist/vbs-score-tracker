@@ -72,8 +72,8 @@ const App = props => {
         return <TeamButton label={mappings.names[t]} color={mappings.colors[t]} onClick={() => recordScore(t)} />
       })}
     </section>
-    <section className='h-24 w-full flex justify-evenly items-center'>
-      {undoList.length > 0 && <h2 className='text-xl text-white'>Click to Undo:</h2>}
+    <section className='h-24 w-full flex flex-wrap overflow-y-scroll justify-evenly items-center'>
+      {undoList.length > 0 && <h2 className='text-xl ml-4 text-white'>Click to Undo:</h2>}
       {undoList.map((item, i) => <UndoButton key={item.time} {...item} index={i} onClick={() => undoScore(item, i)} />)}
     </section>
   </main>

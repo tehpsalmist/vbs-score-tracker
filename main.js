@@ -5,16 +5,21 @@ const { app, BrowserWindow, ipcMain } = require('electron')
 const Store = require('electron-store')
 
 const createDBListeners = require('./dbListeners')
-
-const store = new Store()
+const schema = require('./schema')
 
 const { DEV } = process.env
+
+const store = new Store({ schema })
 
 const windows = {
   menuWindow: null,
   scorekeeperWindow: null,
   scoreboardWindow: null
 }
+
+/**
+ * Startup Stuff
+ */
 
 app.on('ready', createMenuWindow)
 
@@ -26,10 +31,9 @@ app.on('activate', function () {
   if (windows.menuWindow === null) createMenuWindow()
 })
 
-ipcMain.on('open', (event, appName) => {
-  appName === 'scoreboard' && createScoreboardWindow()
-  appName === 'scorekeeper' && createScorekeeperWindow()
-})
+/**
+ * Scorekeeping Stuff
+ */
 
 ipcMain.on('score', (event, { category, points, team }) => {
   const currentScore = (store.store[team] && store.store[team][category]) || 0
@@ -62,6 +66,19 @@ createDBListeners(store, scoreKeys, key => (newValue, oldValue) => {
   if (windows.scorekeeperWindow) {
     windows.scorekeeperWindow.webContents.send('new-score', { key, oldPoints: newValue - (oldValue || 0), newValue })
   }
+})
+
+ipcMain.on('getDB', (event) => {
+  event.sender.send('freshDB', store.store)
+})
+
+/**
+ * Window Stuff
+ */
+
+ipcMain.on('open', (event, appName) => {
+  appName === 'scoreboard' && createScoreboardWindow()
+  appName === 'scorekeeper' && createScorekeeperWindow()
 })
 
 function createMenuWindow () {
@@ -139,11 +156,7 @@ function createScoreboardWindow () {
 
   windows.scoreboardWindow.maximize()
 
-  /**
-   * @todo populate current scores? (maybe wait for scorekeeper to initiate that?)
-   */
-
-  // windows.scoreboardWindow.webContents.openDevTools()
+  windows.scoreboardWindow.webContents.openDevTools()
 
   windows.scoreboardWindow.on('closed', () => {
     windows.scoreboardWindow = null

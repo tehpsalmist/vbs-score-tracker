@@ -4,6 +4,9 @@
   "private": true,
   "homepage": "./",
   "dependencies": {
+    "callbag-for-each": "^1.1.0",
+    "callbag-lossless-throttle": "^1.0.0",
+    "callbag-pipe": "^1.2.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-scripts": "2.1.8"

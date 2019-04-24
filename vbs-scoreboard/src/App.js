@@ -1,42 +1,50 @@
-import React, { useState } from 'react'
-import { useIPCRendererOn } from './hooks'
-import { ContinentMap } from './Continents/Continents'
-import { Africa } from './Continents/Africa'
-import { Australia } from './Continents/Australia'
-import { NorthAmerica } from './Continents/NorthAmerica'
-import { SouthAmerica } from './Continents/SouthAmerica'
-import { Asia } from './Continents/Asia'
-import { Europe } from './Continents/Europe'
-import { Antarctica } from './Continents/Antarctica'
-import { Globe } from './Continents/Globe'
-import mappings from './mappings'
-
-const continents = [
-  ['antarctica', 'games'],
-  ['north-america', 'rally'],
-  ['south-america', 'bibles'],
-  ['asia', 'visitors'],
-  ['europe', 'attendance'],
-  ['africa', 'verses'],
-  ['australia', 'offering']
-]
+import React, { useEffect, useState } from 'react'
+import { useIPCRendererOn, useStore, useIPCRendererOnThrottled } from './hooks'
+import { ipcRenderer } from 'electron'
+import {
+  ContinentMap,
+  Globe,
+  Asia,
+  SouthAmerica,
+  NorthAmerica,
+  Europe,
+  Africa,
+  Antarctica,
+  Australia
+} from './components'
+import { mappings, generateColors } from './utilities'
+import { PointFlash } from './components/PointFlash'
 
 const App = props => {
-  const [fill, setFill] = useState(continents.reduce((map, [key]) => ({ ...map, [key]: 'text-green-300' }), {}))
+  const [teamA, setTeamA] = useStore(`teamA`, mappings.defaultScores.teamA)
+  const [teamB, setTeamB] = useStore(`teamB`, mappings.defaultScores.teamB)
+  const [{ scoringPoints, scoringTeam, scoringTime }, setPoints] = useState({})
 
-  const changeColor = (team, cat) => {
-    setFill({ ...fill, [mappings.categories[cat]]: `text-${mappings.colors[team]}` })
-  }
-
-  useIPCRendererOn('new-score', (event, { key, points, newValue }) => {
-    console.log({ key, points, newValue })
-    const [team, category] = key.split('.')
-
-    changeColor(team, category)
+  useIPCRendererOn('freshDB', (event, store) => {
+    setTeamA(store.teamA)
+    setTeamB(store.teamB)
   })
 
+  useIPCRendererOnThrottled('new-score', 2000, ([event, { key, points, newValue }]) => {
+    const [team, category] = key.split('.')
+
+    setPoints({ scoringPoints: points, scoringTeam: team, scoringTime: new Date().toISOString() })
+
+    if (team === 'teamA') {
+      setTeamA({ ...teamA, [category]: newValue })
+    } else if (team === 'teamB') {
+      setTeamB({ ...teamB, [category]: newValue })
+    }
+  })
+
+  useEffect(() => {
+    ipcRenderer.send('getDB')
+  }, [])
+
+  const fill = generateColors(teamA, teamB)
+
   return (
-    <div className='bg-gray-700 h-screen'>
+    <div className='bg-gray-700 h-screen w-full flex items-center justify-center relative'>
       <ContinentMap>
         <Globe />
         <Asia className={fill['asia']} />
@@ -47,6 +55,7 @@ const App = props => {
         <Africa className={fill['africa']} />
         <Europe className={fill['europe']} />
       </ContinentMap>
+      {scoringPoints > 0 && <PointFlash key={scoringTime} points={scoringPoints} team={scoringTeam} />}
     </div>
   )
 }
