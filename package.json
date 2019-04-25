@@ -24,10 +24,12 @@
   "homepage": "https://github.com/tehpsalmist/vbs-score-tracker#readme",
   "devDependencies": {
     "electron": "^4.1.4",
+    "electron-packager": "^13.1.1",
     "electron-reloader": "^0.2.0",
     "tailwindcss-gradients": "^1.1.0"
   },
   "dependencies": {
+    "electron-serve": "^0.2.0",
     "electron-store": "^3.2.0"
   }
 }

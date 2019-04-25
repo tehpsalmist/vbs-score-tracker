@@ -1,15 +1,18 @@
-const url = require('url')
-const path = require('path')
-
 const { app, BrowserWindow, ipcMain } = require('electron')
 const Store = require('electron-store')
+const serve = require('electron-serve')
 
 const createDBListeners = require('./dbListeners')
-const schema = require('./schema')
+const { schema, defaults } = require('./schema')
+const { getStringScores } = require('./utilities')
 
 const { DEV } = process.env
 
-const store = new Store({ schema })
+const store = new Store({ schema, defaults })
+
+const loadMenuURL = serve({ directory: 'menu-screen/build', scheme: 'menu-screen' })
+const loadScorekeeperURL = serve({ directory: 'vbs-scorekeeper/build', scheme: 'vbs-scorekeeper' })
+const loadScoreboardURL = serve({ directory: 'vbs-scoreboard/build', scheme: 'vbs-scoreboard' })
 
 const windows = {
   menuWindow: null,
@@ -73,6 +76,36 @@ ipcMain.on('getDB', (event) => {
 })
 
 /**
+ * Scores Revealer Stuff
+ */
+
+ipcMain.on('openScoreRevealer', (event) => {
+  if (windows.scoreboardWindow instanceof BrowserWindow) {
+    const { teamA, teamB } = store.store
+
+    const scores = getStringScores(
+      Object.keys(teamA).reduce((total, key) => total + teamA[key], 0),
+      Object.keys(teamB).reduce((total, key) => total + teamB[key], 0)
+    )
+
+    windows.scoreboardWindow.webContents.send('openScoreRevealer', scores)
+    windows.scorekeeperWindow.webContents.send('openScoreRevealer', scores)
+  }
+})
+
+ipcMain.on('closeScoreRevealer', (event) => {
+  if (windows.scoreboardWindow instanceof BrowserWindow) {
+    windows.scoreboardWindow.webContents.send('closeScoreRevealer')
+  }
+})
+
+ipcMain.on('revealIndex', (event, index) => {
+  if (windows.scoreboardWindow instanceof BrowserWindow) {
+    windows.scoreboardWindow.webContents.send('revealIndex', index)
+  }
+})
+
+/**
  * Window Stuff
  */
 
@@ -92,13 +125,7 @@ function createMenuWindow () {
     }
   })
 
-  windows.menuWindow.loadURL(DEV ? 'http://localhost:3000' : url.format({
-    protocol: 'file',
-    slashes: true,
-    pathname: path.join(__dirname, 'menuscreen/build/index.html')
-  }))
-
-  // windows.menuWindow.webContents.openDevTools()
+  DEV ? windows.menuWindow.loadURL('http://localhost:3000') : loadMenuURL(windows.menuWindow)
 
   windows.menuWindow.on('closed', () => {
     windows.menuWindow = null
@@ -122,13 +149,7 @@ function createScorekeeperWindow () {
     }
   })
 
-  windows.scorekeeperWindow.loadURL(DEV ? 'http://localhost:3002' : url.format({
-    protocol: 'file',
-    slashes: true,
-    pathname: path.join(__dirname, 'vbs-scorekeeper/build/index.html')
-  }))
-
-  // windows.scorekeeperWindow.webContents.openDevTools()
+  DEV ? windows.scorekeeperWindow.loadURL('http://localhost:3002') : loadScorekeeperURL(windows.scorekeeperWindow)
 
   windows.scorekeeperWindow.on('closed', () => {
     windows.scorekeeperWindow = null
@@ -148,11 +169,7 @@ function createScoreboardWindow () {
     }
   })
 
-  windows.scoreboardWindow.loadURL(DEV ? 'http://localhost:3001' : url.format({
-    protocol: 'file',
-    slashes: true,
-    pathname: path.join(__dirname, 'vbs-scoreboard/build/index.html')
-  }))
+  DEV ? windows.scoreboardWindow.loadURL('http://localhost:3001') : loadScoreboardURL(windows.scoreboardWindow)
 
   windows.scoreboardWindow.maximize()
 

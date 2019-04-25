@@ -1,4 +1,4 @@
-module.exports = {
+exports.schema = {
   teamA: {
     type: 'object',
     properties: {
@@ -78,5 +78,26 @@ module.exports = {
         minimum: 0
       }
     }
+  }
+}
+
+exports.defaults = {
+  teamA: {
+    visitors: 0,
+    verses: 0,
+    rally: 0,
+    games: 0,
+    attendance: 0,
+    bibles: 0,
+    offering: 0
+  },
+  teamB: {
+    visitors: 0,
+    verses: 0,
+    rally: 0,
+    games: 0,
+    attendance: 0,
+    bibles: 0,
+    offering: 0
   }
 }

@@ -140,7 +140,9 @@ module.exports = {
       '16': '4rem',
       '20': '5rem',
       '24': '6rem',
+      '28': '7rem',
       '32': '8rem',
+      '36': '9rem',
       '40': '10rem',
       '48': '12rem',
       '56': '14rem',
@@ -221,7 +223,10 @@ module.exports = {
       widest: '0.1em'
     },
     textColor: theme => theme('colors'),
-    backgroundColor: theme => theme('colors'),
+    backgroundColor: theme => ({
+      ...theme('colors'),
+      'opacity-50': 'rgba(0, 0, 0, 0.5)'
+    }),
     backgroundPosition: {
       bottom: 'bottom',
       center: 'center',
@@ -278,6 +283,16 @@ module.exports = {
       '4/5': '80%',
       '1/6': '16.66667%',
       '5/6': '83.33333%',
+      xs: '20rem',
+      sm: '24rem',
+      md: '28rem',
+      lg: '32rem',
+      xl: '36rem',
+      '2xl': '42rem',
+      '3xl': '48rem',
+      '4xl': '56rem',
+      '5xl': '64rem',
+      '6xl': '72rem',
       full: '100%',
       screen: '100vw'
     }),

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useIPCRendererOn, useStore, useIPCRendererOnThrottled } from './hooks'
+import { useIPCRendererOn, useStore, useThrottledScore } from './hooks'
 import { ipcRenderer } from 'electron'
 import {
   ContinentMap,
@@ -10,22 +10,35 @@ import {
   Europe,
   Africa,
   Antarctica,
-  Australia
+  Australia,
+  PointFlash,
+  ScoresRevealer
 } from './components'
 import { mappings, generateColors } from './utilities'
-import { PointFlash } from './components/PointFlash'
 
 const App = props => {
   const [teamA, setTeamA] = useStore(`teamA`, mappings.defaultScores.teamA)
   const [teamB, setTeamB] = useStore(`teamB`, mappings.defaultScores.teamB)
   const [{ scoringPoints, scoringTeam, scoringTime }, setPoints] = useState({})
 
+  const [showScoreRevealer, setShowScoreRevealer] = useState(false)
+  const [scoresToReveal, setScoresToReveal] = useState({ teamA: '', teamB: '' })
+
   useIPCRendererOn('freshDB', (event, store) => {
     setTeamA(store.teamA)
     setTeamB(store.teamB)
   })
 
-  useIPCRendererOnThrottled('new-score', 2000, ([event, { key, points, newValue }]) => {
+  useIPCRendererOn('openScoreRevealer', (event, scores) => {
+    setScoresToReveal(scores)
+    setShowScoreRevealer(true)
+  })
+
+  useIPCRendererOn('closeScoreRevealer', (event) => {
+    setShowScoreRevealer(false)
+  })
+
+  useThrottledScore(([event, { key, points, newValue }]) => {
     const [team, category] = key.split('.')
 
     setPoints({ scoringPoints: points, scoringTeam: team, scoringTime: new Date().toISOString() })
@@ -56,6 +69,7 @@ const App = props => {
         <Europe className={fill['europe']} />
       </ContinentMap>
       {scoringPoints > 0 && <PointFlash key={scoringTime} points={scoringPoints} team={scoringTeam} />}
+      {showScoreRevealer && <ScoresRevealer scores={scoresToReveal} />}
     </div>
   )
 }

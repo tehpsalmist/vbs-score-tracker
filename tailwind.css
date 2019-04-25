@@ -2,6 +2,40 @@
 
 @tailwind components;
 
+.card-container {
+    perspective: 800px;
+    height: 12rem;
+}
+
+.card {
+    transition: transform .5s;
+    transform-style: preserve-3d;
+    position: relative;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.card-side {
+    margin: 0;
+    display: block;
+    position: absolute;
+    backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    box-shadow: 0 0 8px 3px var(--shadowcolor);
+}
+
+.back {
+    transform: rotateY(180deg);
+    background: linear-gradient(to bottom right, var(--bluecolor), var(--greencolor));
+    color: var(--textcolor);
+    display: flex;
+}
+
+.flipped {
+    cursor: pointer;
+    transform: rotateY(180deg);
+}
+
 @tailwind utilities;
 
 @responsive {
@@ -80,4 +114,12 @@
 
 .text-glow {
   text-shadow: 0px 0px 25px #fff;
+}
+
+.text-shadow-red {
+  text-shadow: 0px 0px 1px theme('colors.red.500');
+}
+
+.text-shadow-blue {
+  text-shadow: 0px 0px 12px theme('colors.blue.500');
 }

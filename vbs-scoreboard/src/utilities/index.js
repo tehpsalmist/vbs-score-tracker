@@ -33,7 +33,7 @@ export const mappings = {
   colors: {
     'teamA': 'text-indigo-500',
     'teamB': 'text-red-500',
-    'plain': 'text-green-300'
+    'plain': 'text-green-500'
   },
   defaultScores: {
     'teamB': {

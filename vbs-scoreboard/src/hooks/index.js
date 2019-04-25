@@ -4,6 +4,15 @@ import pipe from 'callbag-pipe'
 import throttle from 'callbag-lossless-throttle'
 import forEach from 'callbag-for-each'
 import { fromIPCEvent } from '../utilities'
+import { EventEmitter } from 'events'
+
+const emitter = new EventEmitter()
+
+pipe(
+  fromIPCEvent('new-score'),
+  throttle(2000),
+  forEach(event => emitter.emit('new-score', event))
+)
 
 export const useIPCRendererOn = (event, callback) => {
   useEffect(() => {
@@ -13,15 +22,11 @@ export const useIPCRendererOn = (event, callback) => {
   }, [callback])
 }
 
-export const useIPCRendererOnThrottled = (event, delay, callback) => {
+export const useThrottledScore = (callback) => {
   useEffect(() => {
-    pipe(
-      fromIPCEvent(event),
-      throttle(delay),
-      forEach(callback)
-    )
+    emitter.on('new-score', callback)
 
-    return () => ipcRenderer.removeListener(event, callback)
+    return () => emitter.removeListener('new-score', callback)
   }, [callback])
 }
 
@@ -37,8 +42,6 @@ const setStateForKey = key => newState => {
 
   // all all the listeners for this key to re-render dependent components
   listeners[key].forEach(listener => listener({}))
-
-  console.log('Store: ', store)
 }
 
 export const useStore = (key, initialState) => {

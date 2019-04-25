@@ -7,6 +7,8 @@ import { Asia } from './Asia'
 import { Europe } from './Europe'
 import { Antarctica } from './Antarctica'
 import { Globe } from './Globe'
+import { PointFlash } from './PointFlash'
+import { ScoresRevealer } from './ScoresRevealer'
 
 export {
   ContinentMap,
@@ -17,5 +19,7 @@ export {
   Asia,
   Europe,
   Antarctica,
-  Globe
+  Globe,
+  PointFlash,
+  ScoresRevealer
 }
