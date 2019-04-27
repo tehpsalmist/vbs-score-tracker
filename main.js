@@ -8,7 +8,6 @@ const { schema, defaults } = require('./schema')
 const { getStringScores } = require('./utilities')
 
 const DEV = (process.argv || []).indexOf('--dev') !== -1
-console.log(DEV, process.argv)
 
 autoUpdater.checkForUpdatesAndNotify()
 
