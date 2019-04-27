@@ -464,7 +464,5 @@ module.exports = {
     zIndex: ['responsive']
   },
   corePlugins: {},
-  plugins: [
-    require('tailwindcss-gradients')()
-  ]
+  plugins: []
 }
