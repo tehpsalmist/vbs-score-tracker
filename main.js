@@ -1,12 +1,16 @@
 const { app, BrowserWindow, ipcMain } = require('electron')
 const Store = require('electron-store')
 const serve = require('electron-serve')
+const { autoUpdater } = require('electron-updater')
 
 const createDBListeners = require('./dbListeners')
 const { schema, defaults } = require('./schema')
 const { getStringScores } = require('./utilities')
 
-const { DEV } = process.env
+const DEV = (process.argv || []).indexOf('--dev') !== -1
+console.log(DEV, process.argv)
+
+autoUpdater.checkForUpdatesAndNotify()
 
 const store = new Store({ schema, defaults })
 
@@ -173,7 +177,7 @@ function createScoreboardWindow () {
 
   windows.scoreboardWindow.maximize()
 
-  windows.scoreboardWindow.webContents.openDevTools()
+  // windows.scoreboardWindow.webContents.openDevTools()
 
   windows.scoreboardWindow.on('closed', () => {
     windows.scoreboardWindow = null

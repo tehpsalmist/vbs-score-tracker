@@ -10,7 +10,7 @@
   },
   "scripts": {
     "start": "ngtw b && PORT=3002 BROWSER=none rescripts start & ngtw w",
-    "build": "ngtw b -p && rescripts build",
+    "build": "ngtw b && rescripts build",
     "test": "rescripts test"
   },
   "eslintConfig": {

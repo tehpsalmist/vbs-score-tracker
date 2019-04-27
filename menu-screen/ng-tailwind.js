@@ -15,6 +15,7 @@ module.exports = {
   whitelistPatternsChildren: [],
   extensions: [
     '.ts',
-    '.html'
+    '.html',
+    '.js'
   ]
 }

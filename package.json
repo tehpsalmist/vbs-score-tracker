@@ -5,7 +5,9 @@
   "main": "main.js",
   "scripts": {
     "start": "nodemon --exec electron .",
-    "electron": "electron ."
+    "build": "cd menu-screen && npm run build && cd ../vbs-scorekeeper && npm run build && cd ../vbs-scoreboard && npm run build && cd .. && electron-packager ./ 'VBS Scoreboard' --platform=win32 --arch=x64 --overwrite --ignore=deliverables --out=./deliverables",
+    "electron": "electron .",
+    "publish": "build -w -p always"
   },
   "repository": {
     "type": "git",
@@ -24,12 +26,35 @@
   "homepage": "https://github.com/tehpsalmist/vbs-score-tracker#readme",
   "devDependencies": {
     "electron": "^4.1.4",
-    "electron-packager": "^13.1.1",
-    "electron-reloader": "^0.2.0",
-    "tailwindcss-gradients": "^1.1.0"
+    "electron-builder": "^20.39.0"
   },
   "dependencies": {
     "electron-serve": "^0.2.0",
-    "electron-store": "^3.2.0"
+    "electron-store": "^3.2.0",
+    "electron-updater": "^4.0.6"
+  },
+  "build": {
+    "appId": "com.github.tehpsalmist.vbsscoretracker",
+    "productName": "VBS Scoreboard",
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "tehpsalmist",
+        "repo": "vbs-score-tracker"
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": true
+    }
   }
 }

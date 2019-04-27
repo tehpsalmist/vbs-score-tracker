@@ -89,7 +89,7 @@ const App = props => {
       <RegularButton onClick={previewScores} color='orange' label='Preview Scores' />
       <RegularButton onClick={revealScores} color='green' label='Reveal Scores' />
     </section>
-    <section className='h-sk-column bg-indigo-300 w-1/3 flex flex-col justify-evenly items-center'>
+    <section className='h-sk-column w-1/3 flex flex-col justify-evenly items-center'>
       {categories.map(c =>
         <CategoryButton key={c} selected={category === c} label={mappings.names[c]} onClick={() => setCategory(c)} />
       )}

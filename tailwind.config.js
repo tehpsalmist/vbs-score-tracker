@@ -120,11 +120,6 @@ module.exports = {
         900: '#702459'
       }
     },
-    gradients: theme => ({
-      colors: {
-        'indigo-purple': [theme('colors.indigo.500'), theme('colors.purple.500')]
-      }
-    }),
     spacing: {
       px: '1px',
       '0': '0',

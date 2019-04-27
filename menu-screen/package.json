@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "ngtw b && BROWSER=none rescripts start & ngtw w",
-    "build": "ngtw b -p && rescripts build",
+    "build": "ngtw b && rescripts build",
     "test": "rescripts test"
   },
   "eslintConfig": {
