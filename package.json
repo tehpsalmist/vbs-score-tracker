@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "start": "nodemon --exec electron .",
-    "build": "cd menu-screen && npm run build && cd ../vbs-scorekeeper && npm run build && cd ../vbs-scoreboard && npm run build && cd .. && electron-packager ./ 'VBS Scoreboard' --platform=win32 --arch=x64 --overwrite --ignore=deliverables --out=./deliverables",
+    "build": "cd menu-screen && npm run build && cd ../vbs-scorekeeper && npm run build && cd ../vbs-scoreboard && npm run build && cd .. && build --dir",
     "electron": "electron .",
     "publish": "build -w -p always"
   },
@@ -40,7 +40,8 @@
       {
         "provider": "github",
         "owner": "tehpsalmist",
-        "repo": "vbs-score-tracker"
+        "repo": "vbs-score-tracker",
+        "releaseType": "release"
       }
     ],
     "win": {
@@ -55,6 +56,22 @@
     },
     "nsis": {
       "oneClick": true
-    }
+    },
+    "files": [
+      "**/*",
+      "!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
+      "!**/node_modules/*/{test,__tests__,tests,powered-test,example,examples}",
+      "!**/node_modules/*.d.ts",
+      "!**/node_modules/.bin",
+      "!**/*.{iml,o,hprof,orig,pyc,pyo,rbc,swp,csproj,sln,xproj}",
+      "!.editorconfig",
+      "!**/._*",
+      "!**/{.DS_Store,.git,.hg,.svn,CVS,RCS,SCCS,.gitignore,.gitattributes}",
+      "!**/{__pycache__,thumbs.db,.flowconfig,.idea,.vs,.nyc_output}",
+      "!**/{appveyor.yml,.travis.yml,circle.yml}",
+      "!**/{npm-debug.log,yarn.lock,.yarn-integrity,.yarn-metadata.json}",
+      "!**/tailwind*.*",
+      "!./{vbs-scoreboard,vbs-scorekeeper,menu-screen}/{src,node_modules,public}"
+    ]
   }
 }
