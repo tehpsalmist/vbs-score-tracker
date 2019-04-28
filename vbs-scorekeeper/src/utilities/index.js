@@ -10,6 +10,15 @@ export const mappings = {
     'verses': 'Verses',
     'games': 'Games'
   },
+  continents: {
+    'games': 'Antarctica',
+    'rally': 'North America',
+    'bibles': 'South America',
+    'visitors': 'Asia',
+    'attendance': 'Europe',
+    'verses': 'Africa',
+    'offering': 'Australia'
+  },
   colors: {
     'teamA': 'blue',
     'teamB': 'red'

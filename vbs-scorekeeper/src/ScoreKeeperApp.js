@@ -90,9 +90,13 @@ const App = props => {
       <RegularButton onClick={revealScores} color='green' label='Reveal Scores' />
     </section>
     <section className='h-sk-column w-1/3 flex flex-col justify-evenly items-center'>
-      {categories.map(c =>
-        <CategoryButton key={c} selected={category === c} label={mappings.names[c]} onClick={() => setCategory(c)} />
-      )}
+      {categories.map(c => <CategoryButton
+        key={c}
+        selected={category === c}
+        label={mappings.names[c]}
+        sublabel={mappings.continents[c]}
+        onClick={() => setCategory(c)}
+      />)}
     </section>
     <section className='h-sk-column w-1/3 flex flex-col justify-evenly items-center'>
       {['teamA', 'teamB'].map(t =>
