@@ -8328,6 +8328,11 @@ video {
   stroke-width:0.4;
 }
 
+.continent-label {
+  color: #2b6cb0;
+  fill: currentColor;
+}
+
 .globe {
   fill:#64beff;
 }

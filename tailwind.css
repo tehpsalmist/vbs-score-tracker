@@ -57,6 +57,10 @@
   stroke-width:0.4;
 }
 
+.continent-label {
+  @apply text-blue-700 fill-current;
+}
+
 .globe {
   fill:#64beff;
 }
