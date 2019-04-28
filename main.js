@@ -121,7 +121,6 @@ function createMenuWindow () {
   windows.menuWindow = new BrowserWindow({
     width: 800,
     height: 600,
-    frame: false,
     backgroundColor: '#667eea',
     webPreferences: {
       nodeIntegration: true
@@ -146,7 +145,6 @@ function createScorekeeperWindow () {
     x: 0,
     y: 0,
     backgroundColor: '#667eea',
-    frame: false,
     webPreferences: {
       nodeIntegration: true
     }
@@ -165,7 +163,6 @@ function createScoreboardWindow () {
   }
 
   windows.scoreboardWindow = new BrowserWindow({
-    frame: false,
     backgroundColor: '#4a5568',
     webPreferences: {
       nodeIntegration: true
