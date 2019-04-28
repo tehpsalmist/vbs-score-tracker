@@ -3,7 +3,7 @@ import { mappings } from '../utilities'
 
 export const ScoresPreviewer = ({ close, scores }) => {
   return <section
-    className='fixed h-screen w-full z-40 flex justify-center items-center bg-opacity-50'
+    className='fixed h-screen w-full z-40 flex-center bg-opacity-50'
     onClick={close}
   >
     <button className='text-5xl ml-4 p-4 fixed top-0 left-0' onClick={close}>{'\u2715'}</button>

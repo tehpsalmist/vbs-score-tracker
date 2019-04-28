@@ -4003,6 +4003,10 @@ video {
   line-height: 1;
 }
 
+.leading-tighter {
+  line-height: 1.125;
+}
+
 .leading-tight {
   line-height: 1.25;
 }
@@ -8306,6 +8310,19 @@ video {
   justify-content: space-evenly;
 }
 
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-col-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 .continent {
   stroke:#777;
   stroke-width:0.4;
@@ -11783,6 +11800,10 @@ video {
 
   .sm\:leading-none {
     line-height: 1;
+  }
+
+  .sm\:leading-tighter {
+    line-height: 1.125;
   }
 
   .sm\:leading-tight {
@@ -16071,6 +16092,19 @@ video {
   .sm\:justify-evenly {
     justify-content: space-evenly;
   }
+
+  .sm\:flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .sm\:flex-col-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
 }
 
 @media (min-width: 768px) {
@@ -19400,6 +19434,10 @@ video {
 
   .md\:leading-none {
     line-height: 1;
+  }
+
+  .md\:leading-tighter {
+    line-height: 1.125;
   }
 
   .md\:leading-tight {
@@ -23688,6 +23726,19 @@ video {
   .md\:justify-evenly {
     justify-content: space-evenly;
   }
+
+  .md\:flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .md\:flex-col-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -27017,6 +27068,10 @@ video {
 
   .lg\:leading-none {
     line-height: 1;
+  }
+
+  .lg\:leading-tighter {
+    line-height: 1.125;
   }
 
   .lg\:leading-tight {
@@ -31305,6 +31360,19 @@ video {
   .lg\:justify-evenly {
     justify-content: space-evenly;
   }
+
+  .lg\:flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .lg\:flex-col-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
 }
 
 @media (min-width: 1280px) {
@@ -34634,6 +34702,10 @@ video {
 
   .xl\:leading-none {
     line-height: 1;
+  }
+
+  .xl\:leading-tighter {
+    line-height: 1.125;
   }
 
   .xl\:leading-tight {
@@ -38921,5 +38993,18 @@ video {
 
   .xl\:justify-evenly {
     justify-content: space-evenly;
+  }
+
+  .xl\:flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .xl\:flex-col-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
   }
 }

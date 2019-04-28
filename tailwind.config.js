@@ -203,6 +203,7 @@ module.exports = {
     },
     lineHeight: {
       none: 1,
+      tighter: 1.125,
       tight: 1.25,
       snug: 1.375,
       normal: 1.5,

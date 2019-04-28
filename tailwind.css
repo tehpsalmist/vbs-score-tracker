@@ -42,6 +42,14 @@
   .justify-evenly {
     justify-content: space-evenly;
   }
+
+  .flex-center {
+    @apply flex justify-center items-center;
+  }
+
+  .flex-col-center {
+    @apply flex-center flex-col;
+  }
 }
 
 .continent {

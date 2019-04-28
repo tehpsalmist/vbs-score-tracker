@@ -57,7 +57,7 @@ const App = props => {
   const fill = generateColors(teamA, teamB)
 
   return (
-    <div className='bg-gray-700 h-screen w-full flex items-center justify-center relative'>
+    <div className='bg-gray-700 h-screen w-full flex-center relative'>
       <ContinentMap>
         <Globe />
         <Asia className={fill['asia']} />
