@@ -13,13 +13,23 @@ export const ScoresRevealer = ({ scores }) => {
   return <section
     className='fixed h-screen w-full z-40 flex justify-evenly items-stretch bg-opacity-50'
   >
-    <div className='flex h-full w-1/2 items-center justify-center'>
+    <div className='flex-center h-full w-1/2'>
       {Array.from(scores.teamA)
-        .map((n, i) => <ScoreCard key={i} flipped={flipped[i]} score={n} color={mappings.colors.teamA} />)}
+        .map((n, i) => <ScoreCard
+          key={i}
+          flipped={flipped[i]}
+          score={n}
+          color={Number(n) + i === 0 ? 'text-gray-400' : mappings.colors.teamA}
+        />)}
     </div>
-    <div className='flex h-full w-1/2 items-center justify-center'>
+    <div className='flex-center h-full w-1/2'>
       {Array.from(scores.teamB)
-        .map((n, i) => <ScoreCard key={i} flipped={flipped[i]} score={n} color={mappings.colors.teamB} />)}
+        .map((n, i) => <ScoreCard
+          key={i}
+          flipped={flipped[i]}
+          score={n}
+          color={Number(n) + i === 0 ? 'text-gray-400' : mappings.colors.teamB}
+        />)}
     </div>
   </section>
 }
