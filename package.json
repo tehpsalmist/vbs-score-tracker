@@ -1,13 +1,14 @@
 {
   "name": "vbs-score-tracker",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "VBS Score Tracker Desktop App",
   "main": "main.js",
   "scripts": {
     "start": "nodemon --exec electron .",
-    "build": "cd menu-screen && npm run build && cd ../vbs-scorekeeper && npm run build && cd ../vbs-scoreboard && npm run build && cd .. && build --dir",
+    "build-ui": "cd menu-screen && npm run build && cd ../vbs-scorekeeper && npm run build && cd ../vbs-scoreboard && npm run build && cd ..",
+    "pack": "npm run build-ui && build --dir",
     "electron": "electron .",
-    "publish": "build -w -p always"
+    "publish": "npm run build-ui && build -w -p always"
   },
   "repository": {
     "type": "git",
