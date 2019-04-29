@@ -36,6 +36,14 @@
     transform: rotateY(180deg);
 }
 
+.undo-list {
+  @apply h-24 w-full flex flex-wrap overflow-y-scroll justify-evenly items-center;
+}
+
+.undo-list::-webkit-scrollbar {
+  width: 0 !important
+}
+
 @tailwind utilities;
 
 @responsive {

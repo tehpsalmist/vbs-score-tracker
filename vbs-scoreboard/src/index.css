@@ -667,6 +667,20 @@ video {
           transform: rotateY(180deg);
 }
 
+.undo-list {
+  height: 6rem;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  overflow-y: scroll;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.undo-list::-webkit-scrollbar {
+  width: 0 !important
+}
+
 .appearance-none {
   -webkit-appearance: none;
      -moz-appearance: none;
