@@ -62,8 +62,8 @@ const App = props => {
     setRevealerScores(scores)
   })
 
-  useIPCRendererOn('error', (event, error) => {
-    console.log(error)
+  useIPCRendererOn('clearUndoList', (event) => {
+    setUndoList([])
   })
 
   const previewScores = () => {

@@ -123,12 +123,10 @@ ipcMain.on('revealIndex', (event, index) => {
 ipcMain.on('clearScores', (event, filename) => {
   if (filename) {
     fs.writeFile(filename, JSON.stringify(store.store, null, 2), err => {
-      if (err) {
-        console.log(err)
-        event.sender.send('error', err)
-      } else {
+      if (err) return console.log(err)
+
         store.store = defaults
-      }
+      event.sender.send('clearUndoList')
     })
   }
 })
