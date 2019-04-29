@@ -14,7 +14,7 @@ const DEV = (process.argv || []).indexOf('--dev') !== -1
 autoUpdater.checkForUpdatesAndNotify().then(result => {
   if (result) {
     result.downloadPromise.then(() => {
-      autoUpdater.quitAndInstall()
+      autoUpdater.quitAndInstall(true, true)
     })
   }
 })
@@ -125,7 +125,7 @@ ipcMain.on('clearScores', (event, filename) => {
     fs.writeFile(filename, JSON.stringify(store.store, null, 2), err => {
       if (err) return console.log(err)
 
-        store.store = defaults
+      store.store = defaults
       event.sender.send('clearUndoList')
     })
   }
