@@ -1,6 +1,6 @@
 const fs = require('fs')
 
-const { app, BrowserWindow, ipcMain, remote } = require('electron')
+const { app, BrowserWindow, ipcMain } = require('electron')
 const Store = require('electron-store')
 const serve = require('electron-serve')
 const { autoUpdater } = require('electron-updater')
@@ -14,14 +14,7 @@ const DEV = (process.argv || []).indexOf('--dev') !== -1
 autoUpdater.checkForUpdatesAndNotify().then(result => {
   if (result) {
     result.downloadPromise.then(() => {
-      remote.dialog.showMessageBox(windows.menuWindow, {
-        type: 'question',
-        buttons: ['Later', 'Now'],
-        message: JSON.stringify(result.updateInfo),
-        defaultId: 1
-      }, answer => {
-        answer && autoUpdater.quitAndInstall()
-      })
+      autoUpdater.quitAndInstall()
     })
   }
 })
