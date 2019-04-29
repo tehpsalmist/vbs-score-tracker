@@ -1,3 +1,5 @@
+const fs = require('fs')
+
 const { app, BrowserWindow, ipcMain } = require('electron')
 const Store = require('electron-store')
 const serve = require('electron-serve')
@@ -9,7 +11,13 @@ const { getStringScores } = require('./utilities')
 
 const DEV = (process.argv || []).indexOf('--dev') !== -1
 
-autoUpdater.checkForUpdatesAndNotify()
+autoUpdater.checkForUpdatesAndNotify().then(result => {
+  if (result) {
+    result.downloadPromise.then(() => {
+      autoUpdater.quitAndInstall()
+    })
+  }
+})
 
 const store = new Store({ schema, defaults })
 
@@ -189,8 +197,6 @@ function createScoreboardWindow () {
   DEV ? windows.scoreboardWindow.loadURL('http://localhost:3001') : loadScoreboardURL(windows.scoreboardWindow)
 
   windows.scoreboardWindow.maximize()
-
-  // windows.scoreboardWindow.webContents.openDevTools()
 
   windows.scoreboardWindow.on('closed', () => {
     windows.scoreboardWindow = null
