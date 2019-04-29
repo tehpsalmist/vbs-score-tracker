@@ -109,6 +109,23 @@ ipcMain.on('revealIndex', (event, index) => {
 })
 
 /**
+ * Clear/Export Scores Stuff
+ */
+
+ipcMain.on('clearScores', (event, filename) => {
+  if (filename) {
+    fs.writeFile(filename, JSON.stringify(store.store, null, 2), err => {
+      if (err) {
+        console.log(err)
+        event.sender.send('error', err)
+      } else {
+        store.store = defaults
+      }
+    })
+  }
+})
+
+/**
  * Window Stuff
  */
 

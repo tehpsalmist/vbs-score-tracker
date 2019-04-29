@@ -17,18 +17,18 @@ export const ScoresPreviewer = ({ close, scores }) => {
         return <div className={classes}>
           <h2 className='text-3xl text-center'>{mappings.names[team]}</h2>
           <ul>
-            {Object.keys(scores[team]).map(category => {
-              return <li className='text-2xl py-2 flex justify-between'>
-                <em>{mappings.names[category]}:</em>
-                <span>{scores[team][category].toLocaleString()}</span>
-              </li>
-            })}
-            <strong>
-              <li className='text-2xl py-2 flex justify-between'>
+            {Object.keys(scores[team]).map(category => <li key={category} className='text-2xl py-2 flex justify-between'>
+              <em>{mappings.names[category]}:</em>
+              <span>{scores[team][category].toLocaleString()}</span>
+            </li>)}
+            <li className='text-2xl py-2 flex justify-between'>
+              <strong>
                 <em>Total:</em>
+              </strong>
+              <strong>
                 <span>{Object.keys(scores[team]).reduce((total, cat) => total + scores[team][cat], 0).toLocaleString()}</span>
-              </li>
-            </strong>
+              </strong>
+            </li>
           </ul>
         </div>
       })}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ipcRenderer } from 'electron'
+import { ipcRenderer, remote } from 'electron'
 import { CalculatorButton } from './components/CalculatorButton'
 import { Calculator } from './components/Calculator'
 import { NumPad } from './components/NumPad'
@@ -47,6 +47,7 @@ const App = props => {
   }
 
   useIPCRendererOn('new-score', (event, { key, oldPoints, newValue }) => {
+    console.log(key)
     const [oldTeam, oldCategory] = key.split('.')
     const time = new Date().toISOString()
 
@@ -62,6 +63,10 @@ const App = props => {
     setRevealerScores(scores)
   })
 
+  useIPCRendererOn('error', (event, error) => {
+    console.log(error)
+  })
+
   const previewScores = () => {
     ipcRenderer.send('getDB')
     setShowScorePreview(true)
@@ -69,6 +74,16 @@ const App = props => {
 
   const revealScores = () => {
     ipcRenderer.send('openScoreRevealer')
+  }
+
+  const clearScores = () => {
+    remote.dialog.showSaveDialog({
+      title: 'Export the current scores, just in case.',
+      defaultPath: 'scores.json',
+      filters: [{
+        extensions: ['.json']
+      }]
+    }, filename => ipcRenderer.send('clearScores', filename))
   }
 
   return <main className='h-screen w-full flex flex-wrap bg-gradient-indigo-blue'>
@@ -88,6 +103,7 @@ const App = props => {
       </Calculator>
       <RegularButton onClick={previewScores} color='orange' label='Preview Scores' />
       <RegularButton onClick={revealScores} color='green' label='Reveal Scores' />
+      <RegularButton onClick={clearScores} color='red' label='Clear Scores' />
     </section>
     <section className='h-sk-column w-1/3 flex flex-col justify-evenly items-center'>
       {categories.map(c => <CategoryButton
