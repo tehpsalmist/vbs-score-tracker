@@ -290,14 +290,18 @@ module.exports = {
       '5xl': '64rem',
       '6xl': '72rem',
       full: '100%',
-      screen: '100vw'
+      screen: '100vw',
+      '8vw': '8vw',
+      '6vw': '6vw'
     }),
     height: theme => ({
       auto: 'auto',
       ...theme('spacing'),
       'sk-column': 'calc(100% - 6rem)',
       full: '100%',
-      screen: '100vh'
+      screen: '100vh',
+      '8vw': '8vw',
+      '20vw': '20vw'
     }),
     minWidth: {
       '0': '0',
