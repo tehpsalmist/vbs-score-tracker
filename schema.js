@@ -101,3 +101,27 @@ exports.defaults = {
     offering: 0
   }
 }
+
+const keys = [
+  'visitors',
+  'verses',
+  'rally',
+  'games',
+  'attendance',
+  'bibles',
+  'offering'
+]
+
+exports.validateSchema = json => {
+  try {
+    const { teamA, teamB } = JSON.parse(json)
+
+    if (!teamA || !teamB || Object.keys(teamA).length !== 7 || Object.keys(teamA).length !== 7) {
+      return false
+    }
+
+    return keys.every(key => typeof teamA[key] === 'number' && typeof teamB[key] === 'number')
+  } catch (e) {
+    return false
+  }
+}

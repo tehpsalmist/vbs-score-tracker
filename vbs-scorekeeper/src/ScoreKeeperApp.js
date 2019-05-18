@@ -85,6 +85,16 @@ const App = props => {
     }, filename => ipcRenderer.send('clearScores', filename))
   }
 
+  const importScores = () => {
+    remote.dialog.showOpenDialog({
+      title: 'Import Scores',
+      defaultPath: '~/Documents',
+      filters: [{
+        extensions: ['.json']
+      }]
+    }, filenames => filenames && ipcRenderer.send('importScores', filenames[0]))
+  }
+
   return <main className='h-screen w-full flex flex-wrap bg-gradient-indigo-blue'>
     <section className='h-sk-column w-1/3 flex flex-col justify-evenly items-center'>
       <Calculator>
@@ -100,9 +110,19 @@ const App = props => {
           <CalculatorButton label={'\u232B'} onClick={() => setPoints(points.substring(0, points.length - 1))} />
         </NumPad>
       </Calculator>
-      <RegularButton onClick={previewScores} color='orange' label='Preview Scores' />
-      <RegularButton onClick={revealScores} color='green' label='Reveal Scores' />
-      <RegularButton onClick={clearScores} color='red' label='Clear Scores' />
+      <div style={{
+        width: '100%',
+        display: 'grid',
+        gridTemplate: '1fr / repeat(2, 1fr)',
+        justifyItems: 'center',
+        alignItems: 'center',
+        gridGap: '30px'
+      }}>
+        <RegularButton onClick={previewScores} color='orange' label='Preview Scores' />
+        <RegularButton onClick={revealScores} color='green' label='Reveal Scores' />
+        <RegularButton onClick={clearScores} color='red' label='Clear & Export' />
+        <RegularButton onClick={importScores} color='blue' label='Import Scores' />
+      </div>
     </section>
     <section className='h-sk-column w-1/3 flex flex-col justify-evenly items-center'>
       {categories.map(c => <CategoryButton

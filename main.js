@@ -6,7 +6,7 @@ const serve = require('electron-serve')
 const { autoUpdater } = require('electron-updater')
 
 const createDBListeners = require('./dbListeners')
-const { schema, defaults } = require('./schema')
+const { schema, defaults, validateSchema } = require('./schema')
 const { getStringScores } = require('./utilities')
 
 const DEV = (process.argv || []).indexOf('--dev') !== -1
@@ -117,7 +117,7 @@ ipcMain.on('revealIndex', (event, index) => {
 })
 
 /**
- * Clear/Export Scores Stuff
+ * Export/Import Scores Stuff
  */
 
 ipcMain.on('clearScores', (event, filename) => {
@@ -126,6 +126,21 @@ ipcMain.on('clearScores', (event, filename) => {
       if (err) return console.log(err)
 
       store.store = defaults
+      event.sender.send('clearUndoList')
+    })
+  }
+})
+
+ipcMain.on('importScores', (event, filename) => {
+  if (filename) {
+    fs.readFile(filename, (err, buffer) => {
+      if (err) return console.log(err)
+
+      const json = buffer.toString()
+
+      if (!validateSchema(json)) return console.error('Invalid JSON')
+
+      store.store = JSON.parse(json)
       event.sender.send('clearUndoList')
     })
   }
