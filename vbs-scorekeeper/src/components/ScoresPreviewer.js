@@ -14,7 +14,7 @@ export const ScoresPreviewer = ({ close, scores }) => {
       <h1 className='text-4xl text-center w-full'>Scores Preview</h1>
       {Object.keys(scores).map(team => {
         const classes = `w-1/2 flex flex-col px-20 text-shadow-${mappings.colors[team]}`
-        return <div className={classes}>
+        return <div className={classes} key={team}>
           <h2 className='text-3xl text-center'>{mappings.names[team]}</h2>
           <ul>
             {Object.keys(scores[team]).map(category => <li key={category} className='text-2xl py-2 flex justify-between'>
