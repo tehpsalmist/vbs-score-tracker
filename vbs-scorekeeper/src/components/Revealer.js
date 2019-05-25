@@ -2,9 +2,9 @@ import React from 'react'
 import { ipcRenderer } from 'electron'
 import { ScoreCard } from './ScoreCard'
 
-export const ScoreRevealer = ({ teamA, teamB, close }) => {
+export const Revealer = ({ teamA, teamB, close }) => {
   const closeRevealer = () => {
-    ipcRenderer.send('closeScoreRevealer')
+    ipcRenderer.send('closeRevealers')
     close()
   }
 

@@ -46,8 +46,12 @@ app.on('activate', function () {
 })
 
 /**
- * Scorekeeping Stuff
+ * Database Stuff
  */
+
+ipcMain.on('offeringUpdate', (event, offerings) => {
+  store.set('offerings', offerings)
+})
 
 ipcMain.on('score', (event, { category, points, team }) => {
   const currentScore = (store.store[team] && store.store[team][category]) || 0
@@ -82,12 +86,12 @@ createDBListeners(store, scoreKeys, key => (newValue, oldValue) => {
   }
 })
 
-ipcMain.on('getDB', (event) => {
-  event.sender.send('freshDB', store.store)
+ipcMain.on('getDB', (event, reason) => {
+  event.sender.send('freshDB', store.store, reason)
 })
 
 /**
- * Scores Revealer Stuff
+ * Scores/Offering Revealer Stuff
  */
 
 ipcMain.on('openScoreRevealer', (event) => {
@@ -104,15 +108,24 @@ ipcMain.on('openScoreRevealer', (event) => {
   }
 })
 
-ipcMain.on('closeScoreRevealer', (event) => {
+ipcMain.on('openOfferingRevealer', (event, { teamA, teamB }) => {
   if (windows.scoreboardWindow instanceof BrowserWindow) {
-    windows.scoreboardWindow.webContents.send('closeScoreRevealer')
+    const offerings = getStringScores(teamA.replace('.', ''), teamB.replace('.', ''))
+
+    windows.scoreboardWindow.webContents.send('openOfferingRevealer', offerings)
+    windows.scorekeeperWindow.webContents.send('openOfferingRevealer', offerings)
   }
 })
 
 ipcMain.on('revealIndex', (event, index) => {
   if (windows.scoreboardWindow instanceof BrowserWindow) {
     windows.scoreboardWindow.webContents.send('revealIndex', index)
+  }
+})
+
+ipcMain.on('closeRevealers', (event) => {
+  if (windows.scoreboardWindow instanceof BrowserWindow) {
+    windows.scoreboardWindow.webContents.send('closeRevealers')
   }
 })
 

@@ -12,7 +12,8 @@ import {
   Antarctica,
   Australia,
   PointFlash,
-  ScoresRevealer
+  ScoresRevealer,
+  OfferingRevealer
 } from './components'
 import { mappings, generateColors } from './utilities'
 
@@ -22,7 +23,9 @@ const App = props => {
   const [{ scoringPoints, scoringTeam, scoringTime }, setPoints] = useState({})
 
   const [showScoreRevealer, setShowScoreRevealer] = useState(false)
+  const [showOfferingRevealer, setShowOfferingRevealer] = useState(false)
   const [scoresToReveal, setScoresToReveal] = useState({ teamA: '', teamB: '' })
+  const [offeringToReveal, setOfferingToReveal] = useState({ teamA: '', teamB: '' })
 
   useIPCRendererOn('freshDB', (event, store) => {
     setTeamA(store.teamA)
@@ -34,8 +37,14 @@ const App = props => {
     setShowScoreRevealer(true)
   })
 
-  useIPCRendererOn('closeScoreRevealer', (event) => {
+  useIPCRendererOn('openOfferingRevealer', (event, offerings) => {
+    setOfferingToReveal(offerings)
+    setShowOfferingRevealer(true)
+  })
+
+  useIPCRendererOn('closeRevealers', (event) => {
     setShowScoreRevealer(false)
+    setShowOfferingRevealer(false)
   })
 
   useThrottledScore(([event, { key, points, newValue }]) => {
@@ -70,6 +79,7 @@ const App = props => {
       </ContinentMap>
       {scoringPoints > 0 && <PointFlash key={scoringTime} points={scoringPoints} team={scoringTeam} />}
       {showScoreRevealer && <ScoresRevealer scores={scoresToReveal} />}
+      {showOfferingRevealer && <OfferingRevealer scores={offeringToReveal} />}
     </div>
   )
 }

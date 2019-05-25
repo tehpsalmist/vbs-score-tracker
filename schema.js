@@ -78,6 +78,61 @@ exports.schema = {
         minimum: 0
       }
     }
+  },
+  offerings: {
+    type: 'object',
+    properties: {
+      teamA: {
+        type: 'object',
+        properties: {
+          Monday: {
+            type: 'string',
+            default: ''
+          },
+          Tuesday: {
+            type: 'string',
+            default: ''
+          },
+          Wednesday: {
+            type: 'string',
+            default: ''
+          },
+          Thursday: {
+            type: 'string',
+            default: ''
+          },
+          Friday: {
+            type: 'string',
+            default: ''
+          }
+        }
+      },
+      teamB: {
+        type: 'object',
+        properties: {
+          Monday: {
+            type: 'string',
+            default: ''
+          },
+          Tuesday: {
+            type: 'string',
+            default: ''
+          },
+          Wednesday: {
+            type: 'string',
+            default: ''
+          },
+          Thursday: {
+            type: 'string',
+            default: ''
+          },
+          Friday: {
+            type: 'string',
+            default: ''
+          }
+        }
+      }
+    }
   }
 }
 
@@ -99,6 +154,22 @@ exports.defaults = {
     attendance: 0,
     bibles: 0,
     offering: 0
+  },
+  offerings: {
+    teamA: {
+      Monday: '',
+      Tuesday: '',
+      Wednesday: '',
+      Thursday: '',
+      Friday: ''
+    },
+    teamB: {
+      Monday: '',
+      Tuesday: '',
+      Wednesday: '',
+      Thursday: '',
+      Friday: ''
+    }
   }
 }
 
@@ -112,15 +183,26 @@ const keys = [
   'offering'
 ]
 
+const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
+
 exports.validateSchema = json => {
   try {
-    const { teamA, teamB } = JSON.parse(json)
+    const { teamA, teamB, offerings } = JSON.parse(json)
 
-    if (!teamA || !teamB || Object.keys(teamA).length !== 7 || Object.keys(teamA).length !== 7) {
+    if (
+      !teamA ||
+      !teamB ||
+      !offerings ||
+      Object.keys(teamA).length !== 7 ||
+      Object.keys(teamA).length !== 7 ||
+      Object.keys(offerings.teamA).length !== 5 ||
+      Object.keys(offerings.teamB).length !== 5
+    ) {
       return false
     }
 
-    return keys.every(key => typeof teamA[key] === 'number' && typeof teamB[key] === 'number')
+    return keys.every(key => typeof teamA[key] === 'number' && typeof teamB[key] === 'number') &&
+      days.every(day => typeof offerings.teamA[day] === 'string' && typeof offerings.teamB[day] === 'string')
   } catch (e) {
     return false
   }

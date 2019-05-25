@@ -11,7 +11,8 @@ import { useIPCRendererOn } from './hooks'
 import { mappings } from './utilities'
 import { RegularButton } from './components/RegularButton'
 import { ScoresPreviewer } from './components/ScoresPreviewer'
-import { ScoreRevealer } from './components/ScoreRevealer'
+import { Revealer } from './components/Revealer'
+import { OfferingModal } from './components/OfferingModal'
 
 const categories = [
   'rally',
@@ -28,9 +29,13 @@ const App = props => {
   const [category, setCategory] = useState('rally')
   const [undoList, setUndoList] = useState([])
   const [scores, setScores] = useState(mappings.defaultScores)
+  const [offerings, setOfferings] = useState(mappings.defaultOfferings)
   const [showScorePreview, setShowScorePreview] = useState(false)
+  const [showOfferingModal, setShowOfferingModal] = useState(false)
   const [revealerScores, setRevealerScores] = useState({ teamA: '', teamB: '' })
   const [showScoreRevealer, setShowScoreRevealer] = useState(false)
+  const [revealerOfferings, setRevealerOfferings] = useState({ teamA: '', teamB: '' })
+  const [showOfferingRevealer, setShowOfferingRevealer] = useState(false)
 
   const recordScore = team => {
     if (points) {
@@ -53,8 +58,12 @@ const App = props => {
     oldPoints > 0 && setUndoList([{ oldTeam, oldCategory, oldPoints, time }, ...undoList.slice(0, 4)])
   })
 
-  useIPCRendererOn('freshDB', (event, store) => {
-    setScores(store)
+  useIPCRendererOn('freshDB', (event, database, reason) => {
+    setScores({ teamA: database.teamA, teamB: database.teamB })
+    setOfferings(database.offerings)
+    if (reason === 'offerings') {
+      setShowOfferingModal(true)
+    }
   })
 
   useIPCRendererOn('openScoreRevealer', (event, scores) => {
@@ -62,17 +71,26 @@ const App = props => {
     setRevealerScores(scores)
   })
 
+  useIPCRendererOn('openOfferingRevealer', (event, offerings) => {
+    setShowOfferingRevealer(true)
+    setRevealerOfferings(offerings)
+  })
+
   useIPCRendererOn('clearUndoList', (event) => {
     setUndoList([])
   })
 
   const previewScores = () => {
-    ipcRenderer.send('getDB')
+    ipcRenderer.send('getDB', 'scores')
     setShowScorePreview(true)
   }
 
   const revealScores = () => {
     ipcRenderer.send('openScoreRevealer')
+  }
+
+  const openOfferingModal = () => {
+    ipcRenderer.send('getDB', 'offerings')
   }
 
   const clearScores = () => {
@@ -122,6 +140,7 @@ const App = props => {
         <RegularButton onClick={revealScores} color='green' label='Reveal Scores' />
         <RegularButton onClick={clearScores} color='red' label='Clear & Export' />
         <RegularButton onClick={importScores} color='blue' label='Import Scores' />
+        <RegularButton onClick={openOfferingModal} color='green' label='Offerings' />
       </div>
     </section>
     <section className='h-sk-column w-1/3 flex flex-col justify-evenly items-center'>
@@ -143,7 +162,9 @@ const App = props => {
       {undoList.map((item, i) => <UndoButton key={item.time} {...item} index={i} onClick={() => undoScore(item, i)} />)}
     </section>
     {showScorePreview && <ScoresPreviewer scores={scores} close={() => setShowScorePreview(false)} />}
-    {showScoreRevealer && <ScoreRevealer teamA={revealerScores.teamA} teamB={revealerScores.teamB} close={() => setShowScoreRevealer(false)} />}
+    {showOfferingModal && <OfferingModal offerings={offerings} close={() => setShowOfferingModal(false)} />}
+    {showScoreRevealer && <Revealer teamA={revealerScores.teamA} teamB={revealerScores.teamB} close={() => setShowScoreRevealer(false)} />}
+    {showOfferingRevealer && <Revealer teamA={revealerOfferings.teamA} teamB={revealerOfferings.teamB} close={() => setShowOfferingRevealer(false)} />}
   </main>
 }
 

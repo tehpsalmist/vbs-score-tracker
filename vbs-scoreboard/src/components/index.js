@@ -9,6 +9,7 @@ import { Antarctica } from './Antarctica'
 import { Globe } from './Globe'
 import { PointFlash } from './PointFlash'
 import { ScoresRevealer } from './ScoresRevealer'
+import { OfferingRevealer } from './OfferingRevealer'
 
 export {
   ContinentMap,
@@ -21,5 +22,6 @@ export {
   Antarctica,
   Globe,
   PointFlash,
-  ScoresRevealer
+  ScoresRevealer,
+  OfferingRevealer
 }
