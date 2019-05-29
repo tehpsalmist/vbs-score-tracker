@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { ipcRenderer, remote } from 'electron'
 import { CalculatorButton } from './components/CalculatorButton'
 import { Calculator } from './components/Calculator'
-import { NumPad } from './components/NumPad'
 import { PointsInput } from './components/PointsInput'
 import { CategoryButton } from './components/CategoryButton'
 import { TeamButton } from './components/TeamButton'
@@ -114,19 +113,17 @@ const App = props => {
   }
 
   return <main className='h-screen w-full flex flex-wrap bg-gradient-indigo-blue'>
-    <section className='h-sk-column w-1/3 flex flex-col justify-evenly items-center'>
+    <section className='h-sk-column w-1/3 flex flex-col justify-between items-center'>
       <Calculator>
         <PointsInput value={points} onChange={({ target: { value } }) => (value.match(/^[\d]+$/) || value === '') && setPoints(value)} />
-        <NumPad>
-          {Array(9).fill(1).map((d, i) => {
-            const digit = d + i
+        {Array(9).fill(1).map((d, i) => {
+          const digit = d + i
 
-            return <CalculatorButton key={digit} label={digit} onClick={() => setPoints(points + String(digit))} />
-          })}
-          <CalculatorButton label={'C'} onClick={() => setPoints('')} />
-          <CalculatorButton label={0} onClick={() => setPoints(points + '0')} />
-          <CalculatorButton label={'\u232B'} onClick={() => setPoints(points.substring(0, points.length - 1))} />
-        </NumPad>
+          return <CalculatorButton key={digit} label={digit} onClick={() => setPoints(points + String(digit))} />
+        })}
+        <CalculatorButton label={'C'} onClick={() => setPoints('')} />
+        <CalculatorButton label={0} onClick={() => setPoints(points + '0')} />
+        <CalculatorButton label={'\u232B'} onClick={() => setPoints(points.substring(0, points.length - 1))} />
       </Calculator>
       <div style={{
         width: '100%',
@@ -134,13 +131,13 @@ const App = props => {
         gridTemplate: '1fr / repeat(2, 1fr)',
         justifyItems: 'center',
         alignItems: 'center',
-        gridGap: '30px'
+        gridGap: '10px'
       }}>
         <RegularButton onClick={previewScores} color='orange' label='Preview Scores' />
         <RegularButton onClick={revealScores} color='green' label='Reveal Scores' />
         <RegularButton onClick={clearScores} color='red' label='Clear & Export' />
         <RegularButton onClick={importScores} color='blue' label='Import Scores' />
-        <RegularButton onClick={openOfferingModal} color='green' label='Offerings' />
+        <RegularButton onClick={openOfferingModal} color='green' label='Manage Offerings' />
       </div>
     </section>
     <section className='h-sk-column w-1/3 flex flex-col justify-evenly items-center'>

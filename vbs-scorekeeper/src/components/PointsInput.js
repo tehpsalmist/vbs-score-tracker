@@ -10,7 +10,7 @@ export const PointsInput = ({ value, onChange }) => {
 
   return <input
     ref={inputRef}
-    className='bg-transparent rounded-lg m-2 p-1 mb-6 border-orange-400 border-4 text-5xl text-indigo-600 focus:outline-none focus:border-indigo-600'
+    className='bg-transparent rounded-lg border-orange-400 border-4 text-5xl text-indigo-600 focus:outline-none focus:border-indigo-600 calculator-input'
     value={value}
     onChange={onChange}
   />

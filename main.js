@@ -191,8 +191,8 @@ function createScorekeeperWindow () {
   }
 
   windows.scorekeeperWindow = new BrowserWindow({
-    width: getScreen('width'),
-    height: getScreen('height'),
+    width: DEV ? 1200 : getScreen('width'),
+    height: DEV ? 650 : getScreen('height'),
     x: 0,
     y: 0,
     backgroundColor: '#667eea',

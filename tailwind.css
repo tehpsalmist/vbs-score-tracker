@@ -44,6 +44,23 @@
   width: 0 !important
 }
 
+.calculator-grid {
+  display: grid;
+  grid-template: repeat(5, minmax(0, 1fr)) / repeat(3, minmax(0, 1fr));
+  grid-template-areas:
+    'input input input'
+    '. . .'
+    '. . .'
+    '. . .'
+    '. . .';
+  grid-gap: 4px;
+  @apply p-2;
+}
+
+.calculator-input {
+  grid-area: input;
+}
+
 @tailwind utilities;
 
 @responsive {

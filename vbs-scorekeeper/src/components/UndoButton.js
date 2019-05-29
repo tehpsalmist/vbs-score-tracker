@@ -2,7 +2,7 @@ import React, { useLayoutEffect, useState } from 'react'
 import { mappings } from '../utilities'
 
 export const UndoButton = ({ onClick, oldTeam, oldPoints, oldCategory, index }) => {
-  let classes = `text-xl ml-4 mt-2 p-4 rounded bg-${mappings.colors[oldTeam]}-300 text-${mappings.colors[oldTeam]}-700 shadow-md focus:outline-none relative`
+  let classes = `text-xl ml-4 mt-2 p-2 rounded bg-${mappings.colors[oldTeam]}-300 text-${mappings.colors[oldTeam]}-700 shadow-md focus:outline-none relative`
 
   const [shouldFadeIn, setShouldFadeIn] = useState(false)
   const [didFadeIn, setDidFadeIn] = useState(false)

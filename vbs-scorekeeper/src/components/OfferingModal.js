@@ -72,7 +72,7 @@ export const OfferingModal = ({ close, offerings }) => {
           onClick={() => revealOffering({ teamA: teamA[day], teamB: teamB[day] })}
         />
       </div>)}
-      <RegularButton label='Save Offerings' color='green' onClick={saveOfferings} classNames='ml-auto mr-8 mt-12' />
+      <RegularButton label='Save Offerings' color='green' onClick={saveOfferings} classNames='ml-auto mr-16 mt-12' />
     </div>
   </section>
 }
