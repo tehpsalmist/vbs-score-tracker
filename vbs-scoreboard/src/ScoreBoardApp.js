@@ -16,6 +16,8 @@ import {
   OfferingRevealer
 } from './components'
 import { mappings, generateColors } from './utilities'
+import vikings from './Vikings Logo 2019 transparent2.png'
+import ninjas from './Ninjas Logo 2019 transparent2.png'
 
 const App = props => {
   const [teamA, setTeamA] = useStore(`teamA`, mappings.defaultScores.teamA)
@@ -80,6 +82,8 @@ const App = props => {
       {scoringPoints > 0 && <PointFlash key={scoringTime} points={scoringPoints} team={scoringTeam} />}
       {showScoreRevealer && <ScoresRevealer scores={scoresToReveal} />}
       {showOfferingRevealer && <OfferingRevealer scores={offeringToReveal} />}
+      <img className='fixed top-30 ml-6 left-0 h-40' src={vikings} alt='Vikings!' />
+      <img className='fixed top-30 mr-6 right-0 h-40' src={ninjas} alt='Ninjas!' />
     </div>
   )
 }
