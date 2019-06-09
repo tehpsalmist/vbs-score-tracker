@@ -2,8 +2,8 @@ import { ipcRenderer } from 'electron'
 
 export const mappings = {
   names: {
-    'teamA': 'Team A',
-    'teamB': 'Team B',
+    'teamA': 'Vikings',
+    'teamB': 'Ninjas',
     'rally': 'Rally Time',
     'visitors': 'Visitors',
     'bibles': 'Bibles',
