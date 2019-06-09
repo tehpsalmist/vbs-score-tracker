@@ -10,7 +10,7 @@ const emitter = new EventEmitter()
 
 pipe(
   fromIPCEvent('new-score'),
-  throttle(2000),
+  throttle(3500),
   forEach(event => emitter.emit('new-score', event))
 )
 
