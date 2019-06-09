@@ -71,13 +71,27 @@ const App = props => {
     <div className='bg-gray-700 h-screen w-full flex-center relative'>
       <ContinentMap>
         <Globe />
-        <Asia className={fill['asia']} />
-        <SouthAmerica className={fill['south-america']} />
-        <Antarctica className={fill['antarctica']} />
-        <Australia className={fill['australia']} />
-        <NorthAmerica className={fill['north-america']} />
-        <Africa className={fill['africa']} />
-        <Europe className={fill['europe']} />
+        <Asia className={fill['asia'].bg} />
+        <SouthAmerica className={fill['south-america'].bg} />
+        <Antarctica className={fill['antarctica'].bg} />
+        <Australia className={fill['australia'].bg} />
+        <NorthAmerica className={fill['north-america'].bg} />
+        <Africa className={fill['africa'].bg} />
+        <Europe className={fill['europe'].bg} />
+        <text x='112' y='85'
+          className={`continent-label ${fill[mappings.categories['rally']].text}`}>Rally Time</text>
+        <text x='400' y='65'
+          className={`continent-label ${fill[mappings.categories['visitors']].text}`}>Visitors</text>
+        <text x='295' y='300'
+          className={`continent-label ${fill[mappings.categories['games']].text}`}>Games</text>
+        <text x='180' y='180'
+          className={`continent-label ${fill[mappings.categories['bibles']].text}`}>Bibles</text>
+        <text x='283' y='122' transform='rotate(-10)'
+          className={`continent-label ${fill[mappings.categories['attendance']].text}`}>Attendance</text>
+        <text x='487' y='208'
+          className={`continent-label ${fill[mappings.categories['offering']].text}`}>Offering</text>
+        <text x='300' y='130'
+          className={`continent-label ${fill[mappings.categories['verses']].text}`}>Verses</text>
       </ContinentMap>
       {scoringPoints > 0 && <PointFlash key={scoringTime} points={scoringPoints} team={scoringTeam} />}
       {showScoreRevealer && <ScoresRevealer scores={scoresToReveal} />}

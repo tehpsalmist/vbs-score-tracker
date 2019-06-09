@@ -78,12 +78,12 @@
 }
 
 .continent {
-  stroke:#777;
-  stroke-width:0.4;
+  stroke: #777;
+  stroke-width: 0.4;
 }
 
 .continent-label {
-  @apply text-blue-700 fill-current;
+  @apply font-light tracking-wider stroke-current fill-current;
 }
 
 .globe {
@@ -99,7 +99,7 @@
 }
 
 .fade-in-out {
-  animation: 2s cubic-bezier(.45, .67, .83, 1) fadeinout;
+  animation: 3s cubic-bezier(.35, 0, 1, 1) fadeinout;
   opacity: 0;
 }
 
@@ -127,22 +127,6 @@
     opacity: 1;
     transform: scale(1) translateY(0);
   }
-  /* 13% {
-    opacity: 1;
-    transform: scale(1.2) translateY(-15%);
-  }
-  30% {
-    opacity: .8;
-    transform: scale(1.35) translateY(-30%);
-  }
-  50% {
-    opacity: .6;
-    transform: scale(1.45) translateY(-45%);
-  }
-  73% {
-    opacity: .4;
-    transform: scale(1.5) translateY(-60%);
-  } */
   100% {
     opacity: 0;
     transform: scale(1.53) translateY(-75%);

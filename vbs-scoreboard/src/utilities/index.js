@@ -31,9 +31,12 @@ export const mappings = {
     'australia': 'offering'
   },
   colors: {
-    'teamA': 'text-indigo-500',
-    'teamB': 'text-red-500',
-    'plain': 'text-green-500'
+    'teamA': 'text-blue-bright',
+    'teamB': 'text-red-bright',
+    'plain': 'text-green-500',
+    'teamALabel': 'text-white',
+    'teamBLabel': 'text-white',
+    'plainLabel': 'text-white'
   },
   defaultScores: {
     'teamB': {
@@ -59,9 +62,11 @@ export const mappings = {
 
 export const generateColors = (teamA, teamB) => {
   return Object.keys(mappings.categories).reduce((map, cat) => {
-    const color = mappings.colors[teamA[cat] === teamB[cat] ? 'plain' : teamA[cat] > teamB[cat] ? 'teamA' : 'teamB']
+    const identifier = teamA[cat] === teamB[cat] ? 'plain' : teamA[cat] > teamB[cat] ? 'teamA' : 'teamB'
+    const bg = mappings.colors[identifier]
+    const text = mappings.colors[`${identifier}Label`]
 
-    return { ...map, [mappings.categories[cat]]: color }
+    return { ...map, [mappings.categories[cat]]: { bg, text } }
   }, {})
 }
 
