@@ -1,3 +1,7 @@
+/**
+ * Library Variables
+ */
+
 const fs = require('fs')
 
 const { app, BrowserWindow, ipcMain } = require('electron')
@@ -8,16 +12,13 @@ const { autoUpdater } = require('electron-updater')
 const createDBListeners = require('./dbListeners')
 const { schema, defaults, validateSchema } = require('./schema')
 const { getStringScores } = require('./utilities')
+const { setupMenu } = require('./setupMenu')
 
 const DEV = (process.argv || []).indexOf('--dev') !== -1
 
-autoUpdater.checkForUpdatesAndNotify().then(result => {
-  if (result) {
-    result.downloadPromise.then(() => {
-      autoUpdater.quitAndInstall()
-    })
-  }
-})
+/**
+ * Application Variables
+ */
 
 const store = new Store({ schema, defaults })
 
@@ -31,9 +32,21 @@ const windows = {
   scoreboardWindow: null
 }
 
+const updateIfAvailable = () => {
+  autoUpdater.checkForUpdatesAndNotify().then(result => {
+    if (result) {
+      result.downloadPromise.then(() => {
+        autoUpdater.quitAndInstall()
+      })
+    }
+  })
+}
+
 /**
  * Startup Stuff
  */
+
+updateIfAvailable()
 
 app.on('ready', createMenuWindow)
 
@@ -44,6 +57,8 @@ app.on('window-all-closed', function () {
 app.on('activate', function () {
   if (windows.menuWindow === null) createMenuWindow()
 })
+
+setupMenu(app)
 
 /**
  * Database Stuff
