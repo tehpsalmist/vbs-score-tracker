@@ -16,8 +16,8 @@ import {
   OfferingRevealer
 } from './components'
 import { mappings, generateColors } from './utilities'
-import vikings from './Vikings Logo 2019 transparent2.png'
-import ninjas from './Ninjas Logo 2019 transparent2.png'
+import vikings from './VikingsLogo2019transparent2.png'
+import ninjas from './NinjasLogo2019transparent2.png'
 
 const App = props => {
   const [teamA, setTeamA] = useStore(`teamA`, mappings.defaultScores.teamA)

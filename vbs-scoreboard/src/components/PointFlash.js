@@ -1,6 +1,6 @@
 import React from 'react'
-import vikings from '../Vikings Logo 2019 transparent2.png'
-import ninjas from '../Ninjas Logo 2019 transparent2.png'
+import vikings from '../VikingsLogo2019transparent2.png'
+import ninjas from '../NinjasLogo2019transparent2.png'
 import { mappings } from '../utilities'
 
 export const PointFlash = ({ team, points }) => {
