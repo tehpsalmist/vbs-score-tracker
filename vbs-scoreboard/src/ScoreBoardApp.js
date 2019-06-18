@@ -96,8 +96,8 @@ const App = props => {
       {scoringPoints > 0 && <PointFlash key={scoringTime} points={scoringPoints} team={scoringTeam} />}
       {showScoreRevealer && <ScoresRevealer scores={scoresToReveal} />}
       {showOfferingRevealer && <OfferingRevealer scores={offeringToReveal} />}
-      <img className='fixed top-30 ml-6 left-0 h-40' src={vikings} alt='Vikings!' />
-      <img className='fixed top-30 mr-6 right-0 h-40' src={ninjas} alt='Ninjas!' />
+      <img className='fixed top-30 ml-6 right-0 h-40' src={vikings} alt='Vikings!' />
+      <img className='fixed top-30 mr-6 left-0 h-40' src={ninjas} alt='Ninjas!' />
     </div>
   )
 }
