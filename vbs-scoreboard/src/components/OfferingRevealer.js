@@ -15,22 +15,6 @@ export const OfferingRevealer = ({ scores }) => {
     className='fixed h-screen w-full z-40 flex justify-evenly items-stretch bg-opacity-50'
   >
     <div className='flex-center h-full w-1/2'>
-      <SeparatorCharacter character='$' color='indigo' />
-      {Array.from(scores.teamA)
-        .reduce((l, n, i, a) => {
-          const components = a.length - i === 2 ? [<SeparatorCharacter character='.' color='indigo' />] : []
-
-          components.push(<ScoreCard
-            key={i}
-            flipped={flipped[i]}
-            score={n}
-            color={Number(n) + i === 0 ? 'text-gray-400' : mappings.colors.teamA}
-          />)
-
-          return [...l, ...components]
-        }, [])}
-    </div>
-    <div className='flex-center h-full w-1/2'>
       <SeparatorCharacter character='$' color='red' />
       {Array.from(scores.teamB)
         .reduce((l, n, i, a) => {
@@ -41,6 +25,22 @@ export const OfferingRevealer = ({ scores }) => {
             flipped={flipped[i]}
             score={n}
             color={Number(n) + i === 0 ? 'text-gray-400' : mappings.colors.teamB}
+          />)
+
+          return [...l, ...components]
+        }, [])}
+    </div>
+    <div className='flex-center h-full w-1/2'>
+      <SeparatorCharacter character='$' color='blue' />
+      {Array.from(scores.teamA)
+        .reduce((l, n, i, a) => {
+          const components = a.length - i === 2 ? [<SeparatorCharacter character='.' color='blue' />] : []
+
+          components.push(<ScoreCard
+            key={i}
+            flipped={flipped[i]}
+            score={n}
+            color={Number(n) + i === 0 ? 'text-gray-400' : mappings.colors.teamA}
           />)
 
           return [...l, ...components]
