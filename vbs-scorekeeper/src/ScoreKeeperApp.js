@@ -113,7 +113,7 @@ const App = props => {
   }
 
   return <main className='h-screen w-full flex flex-wrap bg-gradient-indigo-blue'>
-    <section className='h-sk-column w-1/3 flex flex-col justify-between items-center'>
+    <section className='h-sk-column w-1/3 flex flex-col justify-evenly items-center'>
       <Calculator>
         <PointsInput value={points} onChange={({ target: { value } }) => (value.match(/^[\d]+$/) || value === '') && setPoints(value)} />
         {Array(9).fill(1).map((d, i) => {
