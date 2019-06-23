@@ -9,7 +9,7 @@
     "pack-dir": "build --config ./builder.json --dir",
     "pack": "build --config ./builder.json",
     "electron": "electron .",
-    "publish": "npm run build-ui && build --config ./builder.json -w -p always"
+    "publish": "npm run build-ui && build --config ./builder.json -w -m -p always"
   },
   "repository": {
     "type": "git",
