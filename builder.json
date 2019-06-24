@@ -21,7 +21,12 @@
   },
   "mac": {
     "target": "dmg",
-    "category": "public.app-category.education"
+    "category": "public.app-category.education",
+    "extendInfo": {
+      "NSAppTransportSecurity": {
+        "NSAllowsArbitraryLoads": true
+      }
+    }
   },
   "nsis": {
     "oneClick": true
