@@ -33,7 +33,7 @@ export const mappings = {
   colors: {
     'teamA': 'text-blue-bright',
     'teamB': 'text-red-bright',
-    'plain': 'text-green-500',
+    'plain': 'text-green-700',
     'teamALabel': 'text-white',
     'teamBLabel': 'text-white',
     'plainLabel': 'text-white'
