@@ -1,6 +1,6 @@
 {
   "name": "vbs-score-tracker",
-  "version": "1.1.7",
+  "version": "1.1.7a",
   "description": "VBS Score Tracker Desktop App",
   "main": "main.js",
   "scripts": {
