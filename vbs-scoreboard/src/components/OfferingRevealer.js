@@ -15,10 +15,10 @@ export const OfferingRevealer = ({ scores }) => {
     className='fixed h-screen w-full z-40 flex justify-evenly items-stretch bg-opacity-50'
   >
     <div className='flex-center h-full w-1/2'>
-      <SeparatorCharacter character='$' color='red' />
+      <SeparatorCharacter character='$' color='red-500' />
       {Array.from(scores.teamB)
         .reduce((l, n, i, a) => {
-          const components = a.length - i === 2 ? [<SeparatorCharacter character='.' color='red' />] : []
+          const components = a.length - i === 2 ? [<SeparatorCharacter character='.' color='white' />] : []
 
           components.push(<ScoreCard
             key={i}
@@ -31,10 +31,10 @@ export const OfferingRevealer = ({ scores }) => {
         }, [])}
     </div>
     <div className='flex-center h-full w-1/2'>
-      <SeparatorCharacter character='$' color='blue' />
+      <SeparatorCharacter character='$' color='blue-500' />
       {Array.from(scores.teamA)
         .reduce((l, n, i, a) => {
-          const components = a.length - i === 2 ? [<SeparatorCharacter character='.' color='blue' />] : []
+          const components = a.length - i === 2 ? [<SeparatorCharacter character='.' color='white' />] : []
 
           components.push(<ScoreCard
             key={i}

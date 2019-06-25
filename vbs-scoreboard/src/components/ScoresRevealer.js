@@ -17,7 +17,7 @@ export const ScoresRevealer = ({ scores }) => {
     <div className='flex-center h-full w-1/2'>
       {Array.from(scores.teamB)
         .reduce((l, n, i, a) => {
-          const components = i > 0 && (a.length - i) % 3 === 0 ? [<SeparatorCharacter character=',' color='red' />] : []
+          const components = i > 0 && (a.length - i) % 3 === 0 ? [<SeparatorCharacter character=',' color='red-500' />] : []
 
           components.push(<ScoreCard
             key={i}
@@ -32,7 +32,7 @@ export const ScoresRevealer = ({ scores }) => {
     <div className='flex-center h-full w-1/2'>
       {Array.from(scores.teamA)
         .reduce((l, n, i, a) => {
-          const components = i > 0 && (a.length - i) % 3 === 0 ? [<SeparatorCharacter character=',' color='blue' />] : []
+          const components = i > 0 && (a.length - i) % 3 === 0 ? [<SeparatorCharacter character=',' color='blue-500' />] : []
 
           components.push(<ScoreCard
             key={i}
