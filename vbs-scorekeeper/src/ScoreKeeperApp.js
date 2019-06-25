@@ -7,7 +7,7 @@ import { CategoryButton } from './components/CategoryButton'
 import { TeamButton } from './components/TeamButton'
 import { UndoButton } from './components/UndoButton'
 import { useIPCRendererOn } from './hooks'
-import { mappings } from './utilities'
+import { mappings, adjustPoints } from './utilities'
 import { RegularButton } from './components/RegularButton'
 import { ScoresPreviewer } from './components/ScoresPreviewer'
 import { Revealer } from './components/Revealer'
@@ -38,7 +38,9 @@ const App = props => {
 
   const recordScore = team => {
     if (points) {
-      ipcRenderer.send('score', { category, points: Number(points), team })
+      const actualPoints = adjustPoints(points)
+
+      ipcRenderer.send('score', { category, points: actualPoints, team })
 
       setPoints('')
     }
@@ -115,7 +117,7 @@ const App = props => {
   return <main className='h-screen w-full flex flex-wrap bg-gradient-indigo-blue'>
     <section className='h-sk-column w-1/3 flex flex-col justify-evenly items-center'>
       <Calculator>
-        <PointsInput value={points} onChange={({ target: { value } }) => (value.match(/^[\d]+$/) || value === '') && setPoints(value)} />
+        <PointsInput value={points} onChange={({ target: { value } }) => (value.match(/^[\dx]+$/) || value === '') && setPoints(value)} />
         {Array(9).fill(1).map((d, i) => {
           const digit = d + i
 

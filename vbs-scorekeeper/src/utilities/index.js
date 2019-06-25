@@ -73,3 +73,13 @@ export const adjustOfferings = ({ teamA, teamB }) => {
     teamB: Object.keys(teamB).reduce(adjustmentReducer(teamB), {})
   }
 }
+
+export const adjustPoints = points => {
+  if (points.includes('x')) {
+    const [value, multipler] = points.split('x').map(Number)
+
+    return value * multipler
+  }
+
+  return Number(points)
+}
