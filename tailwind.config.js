@@ -193,7 +193,8 @@ module.exports = {
       '4xl': '2.25rem',
       '5xl': '3rem',
       '6xl': '4rem',
-      'huge': '8vw'
+      'huge': '8vw',
+      'huger': '10vw'
     },
     fontWeight: {
       hairline: 100,
@@ -297,7 +298,8 @@ module.exports = {
       full: '100%',
       screen: '100vw',
       '8vw': '8vw',
-      '6vw': '6vw'
+      '6vw': '6vw',
+      '5vw': '5vw'
     }),
     height: theme => ({
       auto: 'auto',
@@ -306,7 +308,8 @@ module.exports = {
       full: '100%',
       screen: '100vh',
       '8vw': '8vw',
-      '20vw': '20vw'
+      '20vw': '20vw',
+      '2/3': '65%'
     }),
     minWidth: {
       '0': '0',

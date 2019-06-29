@@ -103,6 +103,14 @@
   opacity: 0;
 }
 
+.winning-image {
+  transform: scale(0);
+  animation-name: growin;
+  animation-delay: 5s;
+  animation-duration: 3s;
+  animation-timing-function: ease-in;
+}
+
 @keyframes fadein {
   0% {
     opacity: 0;
@@ -130,6 +138,15 @@
   100% {
     opacity: 0;
     transform: scale(1.53) translateY(-75%);
+  }
+}
+
+@keyframes growin {
+  0% {
+    transform: scale(0.05);
+  }
+  100% {
+    transform: scale(1);
   }
 }
 
